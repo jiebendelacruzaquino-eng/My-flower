@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7c9dc">
+<title>My Girl 💗</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;font-family:Georgia,"Times New Roman",serif}
+body{
+  overflow-x:hidden;
+  background:linear-gradient(135deg,#ffdce9,#f8c6db 45%,#fbdde9);
+  color:#693d52;
+}
+.screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+#lock{
+  position:fixed;inset:0;z-index:50;
+  background:linear-gradient(135deg,#f9cada,#ffe7f0);
+  transition:opacity .9s,visibility .9s;
+}
+#lock.open{opacity:0;visibility:hidden;pointer-events:none}
+.glow{position:absolute;border-radius:50%;filter:blur(45px);opacity:.45}
+.g1{width:280px;height:280px;background:#fff;top:-100px;left:-90px}
+.g2{width:330px;height:330px;background:#f19abb;bottom:-130px;right:-100px}
+.login{
+  width:min(390px,100%);padding:38px 28px;text-align:center;
+  background:rgba(255,250,252,.9);border:1px solid white;border-radius:30px;
+  box-shadow:0 25px 70px rgba(116,55,81,.2);backdrop-filter:blur(12px);
+  animation:up .9s ease;
+}
+.flower-icon{font-size:58px;animation:bob 3s ease-in-out infinite}
+.login h1{margin:12px 0 8px;color:#a45177;font-size:30px}
+.login p{font:14px Arial,sans-serif;color:#97677c;margin-bottom:24px}
+input{
+  width:100%;padding:15px;border:2px solid #efb5cb;border-radius:15px;
+  outline:0;text-align:center;font-size:21px;letter-spacing:8px;color:#713b55;
+  background:#fffafd;
+}
+input:focus{border-color:#d879a1;box-shadow:0 0 18px #d879a133}
+button{
+  border:0;border-radius:15px;background:#d879a1;color:white;
+  font:bold 16px Arial,sans-serif;padding:15px;width:100%;margin-top:14px;
+  cursor:pointer;transition:.25s
+}
+button:hover{transform:translateY(-2px);background:#c96591}
+#error{height:20px;margin-top:10px;font:13px Arial,sans-serif;color:#c94c70}
+.hint{margin-top:18px!important;font-size:11px!important;opacity:.65}
+#letterPage{display:none;min-height:100vh;padding:55px 16px}
+#letterPage.show{display:block}
+.decor{position:fixed;z-index:1;pointer-events:none;font-size:34px;animation:sway 5s ease-in-out infinite}
+.d1{top:4%;left:3%;font-size:46px}.d2{top:12%;right:4%}.d3{top:35%;left:4%}
+.d4{top:48%;right:3%;font-size:45px}.d5{bottom:13%;left:3%;font-size:42px}
+.d6{bottom:6%;right:5%}.d7{top:21%;left:47%;font-size:24px}
+.letter{
+  position:relative;z-index:5;width:min(760px,100%);margin:auto;
+  padding:48px 48px 55px;background:#fffafd;
+  box-shadow:0 25px 70px rgba(116,55,81,.2);
+  border:1px solid #fff;border-radius:8px;
+  animation:letterIn 1.2s ease;
+}
+.letter:before{content:"";position:absolute;inset:12px;border:1px solid #efbfd2;pointer-events:none}
+.heart{text-align:center;font-size:38px;animation:heart 2s infinite}
+h2{text-align:center;color:#a65378;font-size:31px;margin:10px 0 7px}
+.subtitle{text-align:center;font:12px Arial,sans-serif;letter-spacing:2px;color:#b77a93;margin-bottom:32px}
+.letter p{font-size:17px;line-height:1.9;margin-bottom:20px}
+.signature{text-align:right;margin-top:28px;font-style:italic;font-size:20px;color:#9d4e71}
+.final{text-align:center;border-top:1px solid #efbfd2;margin-top:28px;padding-top:24px}
+.final strong{display:block;color:#b34d78;font-size:22px;margin-bottom:8px}
+.petal{position:fixed;top:-35px;z-index:2;pointer-events:none;animation:fall linear forwards;opacity:.7}
+#musicBtn{
+  position:fixed;z-index:20;right:16px;bottom:16px;width:auto;margin:0;
+  padding:11px 15px;border-radius:30px;font-size:13px;
+  box-shadow:0 8px 20px #8d456122
+}
+#envelope{
+  position:fixed;inset:0;z-index:40;background:rgba(255,218,232,.96);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .8s,visibility .8s;
+}
+#envelope.hide{opacity:0;visibility:hidden;pointer-events:none}
+.env-wrap{text-align:center;animation:up 1s ease}
+.env{position:relative;width:min(330px,80vw);height:220px;margin:auto;cursor:pointer;filter:drop-shadow(0 20px 25px #9d4e7130)}
+.env-back{position:absolute;inset:0;background:#e99fbe;border-radius:8px}
+.env-paper{position:absolute;background:#fffafd;width:78%;height:80%;left:11%;top:8%;border-radius:4px;transition:.8s}
+.env-flap{
+  position:absolute;inset:0;background:#f1b1ca;
+  clip-path:polygon(0 0,100% 0,50% 62%);z-index:3
+}
+.env-front{
+  position:absolute;inset:0;z-index:4;
+  background:#e7a0bd;clip-path:polygon(0 100%,0 38%,50% 70%,100% 38%,100% 100%);
+}
+.seal{position:absolute;z-index:6;left:50%;top:51%;transform:translate(-50%,-50%);font-size:38px}
+.env-wrap h3{margin-top:25px;color:#a45177;font-size:25px}
+.env-wrap p{margin-top:7px;color:#9b6b80;font:13px Arial,sans-serif}
+@keyframes up{from{opacity:0;transform:translateY(25px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes letterIn{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
+@keyframes bob{50%{transform:translateY(-9px)}}
+@keyframes sway{0%,100%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(5deg) translateY(-8px)}}
+@keyframes heart{15%{transform:scale(1.15)}30%{transform:scale(1)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media(max-width:600px){
+  #letterPage{padding:35px 12px}
+  .letter{padding:38px 25px 44px}
+  h2{font-size:26px}.letter p{font-size:15.5px;line-height:1.85}
+  .decor{opacity:.72}.d7{display:none}
+}
+</style>
+</head>
+<body>
+
+<section id="lock" class="screen">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="login">
+    <div class="flower-icon">🌸</div>
+    <h1>A Letter For You</h1>
+    <p>Someone left a little surprise for you. 💗</p>
+    <input id="password" type="password" inputmode="numeric" maxlength="4"
+           placeholder="••••" autocomplete="off">
+    <button id="unlockBtn">Unlock My Letter 💌</button>
+    <div id="error"></div>
+    <p class="hint">Enter the secret 4-digit code.</p>
+  </div>
+</section>
+
+<section id="envelope">
+  <div class="env-wrap">
+    <div class="env" id="env">
+      <div class="env-back"></div>
+      <div class="env-paper"></div>
+      <div class="env-flap"></div>
+      <div class="env-front"></div>
+      <div class="seal">💗</div>
+    </div>
+    <h3>Tap the envelope 💌</h3>
+    <p>There's something inside for you.</p>
+  </div>
+</section>
+
+<main id="letterPage">
+  <div class="decor d1">🌸</div><div class="decor d2">🌷</div>
+  <div class="decor d3">🌺</div><div class="decor d4">🌸</div>
+  <div class="decor d5">🌷</div><div class="decor d6">🌺</div>
+  <div class="decor d7">🌸</div>
+
+  <article class="letter">
+<div id="letterText">
+      <p>Hi baby,</p>
+      <p>It's been months nung sinagot mo ako, hindi ko alam HAHAHAH.</p>
+      <p>Happy monthsary, baby! Alam kong ang bigat ng time para sa atin ngayon. May mga nangyari na hindi natin kayang baguhin, may mga sitwasyon na gusto na nating sumuko dahil nakakapagod, pero sana hindi tayo titigil kahit anong mangyari.</p>
+      <p>Yung mga nangyayari sa atin ngayon, ngayon lang 'to, baby. Malalagpasan natin 'to, kaya let's be strong. Hindi lang sa relationship, kundi sa sarili rin natin.</p>
+      <p>Anywayssssss HAHAHAHAH, thank you, baby, for being a wonderful partner. I enjoy being with you (sana ikaw rin HAHAHAHAH), and I'm grateful that you decided to give me the privilege of being your boyfriend.</p>
+      <p>I'll treasure every moment we spend together, and I'll do my best to give you the life you always wanted.</p>
+    </div>
+<div class="final">
+      <strong>HAPPY MONTHSARY, BABY! 🌸</strong>
+      <span>I LOVE YOU. ❤️</span>
+    </div>
+  </article>
+
+  <button id="musicBtn">🔇 Music off</button>
+</main>
+
+<!-- YouTube music player. Playback starts when the envelope is tapped. -->
+<iframe
+  id="youtubeMusic"
+  width="1"
+  height="1"
+  style="position:fixed;left:-10px;bottom:-10px;opacity:0;pointer-events:none;border:0"
+  src=""
+  title="Background music"
+  allow="autoplay; encrypted-media"
+  referrerpolicy="strict-origin-when-cross-origin">
+</iframe>
+
+<script>
+const PASSWORD = "0711";
+const lock = document.getElementById("lock");
+const pass = document.getElementById("password");
+const error = document.getElementById("error");
+const envelope = document.getElementById("envelope");
+const page = document.getElementById("letterPage");
+const youtubeMusic = document.getElementById("youtubeMusic");
+const musicBtn = document.getElementById("musicBtn");
+const YOUTUBE_VIDEO_ID = "Kk5UhdSHkaw";
+
+function unlock(){
+  if(pass.value !== PASSWORD){
+    error.textContent = "That's not it, baby. Try again 💗";
+    pass.value = "";
+    pass.animate(
+      [{transform:"translateX(0)"},{transform:"translateX(-8px)"},
+       {transform:"translateX(8px)"},{transform:"translateX(0)"}],
+      {duration:300}
+    );
+    return;
+  }
+  error.textContent = "";
+  lock.classList.add("open");
+  setTimeout(() => envelope.classList.remove("hide"), 650);
+}
+document.getElementById("unlockBtn").addEventListener("click",unlock);
+pass.addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+
+document.getElementById("env").addEventListener("click",()=>{
+  envelope.classList.add("hide");
+  page.classList.add("show");
+  createPetals();
+
+  // The tap on the envelope is a user gesture, so request YouTube playback here.
+  youtubeMusic.src =
+    "https://www.youtube.com/embed/" + YOUTUBE_VIDEO_ID +
+    "?autoplay=1&loop=1&playlist=" + YOUTUBE_VIDEO_ID +
+    "&controls=0&playsinline=1&rel=0";
+
+  musicBtn.textContent = "🔊 Music on";
+});
+
+function createPetals(){
+  const symbols=["🌸","🌷","🌺","💗"];
+  for(let i=0;i<22;i++){
+    const p=document.createElement("div");
+    p.className="petal";
+    p.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    p.style.left=Math.random()*100+"vw";
+    p.style.fontSize=(13+Math.random()*15)+"px";
+    p.style.animationDuration=(7+Math.random()*8)+"s";
+    p.style.animationDelay=(Math.random()*6)+"s";
+    document.body.appendChild(p);
+  }
+}
+
+musicBtn.addEventListener("click",()=>{
+  const current = youtubeMusic.src;
+
+  if(!current){
+    musicBtn.textContent = "💌 Open the envelope first";
+    return;
+  }
+
+  // Toggle the YouTube iframe by loading/unloading its source.
+  if(musicBtn.textContent.includes("on")){
+    youtubeMusic.src = "";
+    musicBtn.textContent = "🔇 Music off";
+  }else{
+    youtubeMusic.src =
+      "https://www.youtube.com/embed/" + YOUTUBE_VIDEO_ID +
+      "?autoplay=1&loop=1&playlist=" + YOUTUBE_VIDEO_ID +
+      "&controls=0&playsinline=1&rel=0";
+    musicBtn.textContent = "🔊 Music on";
+  }
+});
+</script>
+</body>
+</html>
